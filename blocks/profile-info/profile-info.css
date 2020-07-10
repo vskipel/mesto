@@ -1,0 +1,16 @@
+@import url('./__person/profile-info__person.css');
+@import url('./__subtitle/profile-info__subtitle.css');
+@import url('./__title/profile-info__title.css');
+@import url('./__title-edit-wrapper/profile-info__title-edit-wrapper.css');
+
+.profile-info {
+  padding-left: 30px;
+  align-self: center;
+  display: flex;
+}
+
+@media screen and (max-width: 748px) {
+  .profile-info {
+    padding-left: 0px;
+  }
+}

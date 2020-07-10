@@ -1,0 +1,168 @@
+.page {
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  padding-top: 45px;
+  max-width: 882px;
+  width: calc(100% - 19px*2);
+  min-height: 74px;
+  border-bottom: 1px solid #545454;
+}
+
+.main {
+  display: flex;
+  max-width: 882px;
+  width: calc(100% - 19px*2);
+  flex-direction: column;
+}
+
+.profile {
+  padding-top: 40px;
+  min-height: 120px;
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  grid-template-rows: 120px;
+  grid-template-areas:
+    "avatar profile-info add-button";
+  max-width: 882px;
+  width: 100%;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.profile-info {
+  padding-left: 30px;
+  align-self: center;
+  display: flex;
+}
+
+.profile-info__person {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info__title {
+  color: #fff;
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 56px;
+}
+
+.profile-info__subtitle {
+  color: #fff;
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.edit-button {
+  background-image: url(./images/edit-button.svg);
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: #000;
+  background-repeat: no-repeat;
+  margin: 19px 0 0 17px;
+  padding: 0;
+}
+
+.add-button {
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 2px;
+  width: 150px;
+  height: 50px;
+  background-color: #000;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-button__icon {
+  background-image: url(./images/plus-button.svg);
+  height: 22px;
+  width: 22px;
+  border: none;
+  background-color: #000;
+  background-repeat: no-repeat;
+}
+
+.elements {
+  display: flex;
+  padding: 51px 0 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 18px;
+  justify-items: center;
+  list-style: none;
+}
+
+.element {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.element__image {
+  width: 100%;
+}
+
+.element__caption {
+  display: flex;
+  justify-content: space-between;
+}
+
+.element__place {
+  margin: 0;
+  padding: 25px 0 31px 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 170px;
+}
+
+.element__like-button {
+  background-image: url(./images/like-button.svg);
+  border: none;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  padding: 0 31px 0 21px;
+  margin-top: 31px;
+}
+
+.footer {
+  align-self: center;
+  display: flex;
+  max-width: 882px;
+  width: calc(100% - 19px*2);
+}
+
+.copyright {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #545454;
+  margin: 0;
+  padding-top: 66px;
+  padding-bottom: 60px;
+}

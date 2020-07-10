@@ -1,0 +1,13 @@
+@import url('./__caption/element__caption.css');
+@import url('./__image/element__image.css');
+@import url('./__like-button/element__like-button.css');
+@import url('./__place/element__place.css');
+
+.element {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: 361px;
+}

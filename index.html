@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./pages/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <meta name="description" content="Место">
+  <meta name="keywords" content="Путешествия, Мир">
+  <meta name="author" content="Антон Хомченко">
+</head>
+
+<body class="page">
+  <header class="header">
+    <img src="./images/mesto-logo.svg" alt="Место-логотип" class="logo">
+  </header>
+
+  <section class="popup">
+    <div class="popup__container">
+      <div class="popup__close-button"></div>
+      <form action="" class="popup__form">
+        <p class="popup__title">Редактировать профиль</p>
+        <input type="text" class="popup__input-name" value="" placeholder="...">
+        <input type="text" class="popup__input-job" value="" placeholder="...">
+        <button class="popup__save-button" type="submit" id="savebutton">Сохранить</button>
+      </form>
+    </div>
+  </section>
+
+  <main class="main">
+
+    <section class="profile">
+      <img src="./images/jacque-yve-cousteau.jpg" alt="Жак Ив Кусто" class="avatar">
+      <div class="profile-info">
+        <div class="profile-info__person">
+          <div class="profile-info__title-edit-wrapper">
+            <h1 class="profile-info__title">Жак-Ив Кусто</h1>
+            <div class="edit-button"></div>
+          </div>
+          <p class="profile-info__subtitle">Исследователь океана</p>
+        </div>
+      </div>
+
+      <a href="#" class="add-button">
+        <div class="add-button__icon"></div>
+      </a>
+    </section>
+
+    <ul class="elements">
+      <li class="element">
+        <img src="./images/element-karachaevsk.jpg" alt="Карачаевск" class="element__image">
+        <div class="element__caption">
+          <H2 class="element__place">Карачаевск</H2>
+          <a href="" class="element__like-button"></a>
+        </div>
+      </li>
+      <li class="element">
+        <img src="./images/element-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
+        <div class="element__caption">
+          <H2 class="element__place">Гора Эльбрус</H2>
+          <a href="" class="element__like-button"></a>
+        </div>
+      </li>
+      <li class="element">
+        <img src="./images/element-dombai.jpg" alt="Домбай" class="element__image">
+        <div class="element__caption">
+          <H2 class="element__place">Домбай</H2>
+          <a href="" class="element__like-button"></a>
+        </div>
+      </li>
+      <li class="element">
+        <img src="./images/element-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
+        <div class="element__caption">
+          <H2 class="element__place">Гора Эльбрус</H2>
+          <a href="" class="element__like-button"></a>
+        </div>
+      </li>
+      <li class="element">
+        <img src="./images/element-dombai.jpg" alt="Домбай" class="element__image">
+        <div class="element__caption">
+          <H2 class="element__place">Домбай</H2>
+          <a href="" class="element__like-button"></a>
+        </div>
+      </li>
+      <li class="element">
+        <img src="./images/element-karachaevsk.jpg" alt="Карачаево-Черкессия" class="element__image">
+        <div class="element__caption">
+          <H2 class="element__place">Карачаево-Черкессия</H2>
+          <a href="" class="element__like-button"></a>
+        </div>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="footer">
+    <p class="copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+
+  <script src="./scripts/script.js"></script>
+</body>
+
+</html>
