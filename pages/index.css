@@ -1,8 +1,6 @@
-@import url(../vendor/normalize.css);
-@import url(../vendor/fonts/fonts.css);
+@import url('../vendor/normalize.css');
+@import url('../vendor/fonts/fonts.css');
 @import url('../blocks/add-button/add-button.css');
-@import url('../blocks/avatar/avatar.css');
-@import url('../blocks/copyright/copyright.css');
 @import url('../blocks/edit-button/edit-button.css');
 @import url('../blocks/element/element.css');
 @import url('../blocks/elements/elements.css');

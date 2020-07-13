@@ -14,7 +14,8 @@
 @media screen and (max-width: 748px) {
   .profile-info__title {
     font-size: 27px;
-    line-height: 56px;
     max-width: 250px;
+    padding-top: 25px;
+    grid-area: title;
   }
 }

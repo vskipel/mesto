@@ -1,42 +1,52 @@
+// задаем переменные
+// попапам
 let popup = document.querySelector('.popup');
-let main = document.querySelector('.main');
-let profile = main.querySelector('.profile');
-let editButton = profile.querySelector('.edit-button');
 let closeButton = popup.querySelector('.popup__close-button');
-let profileInfo = profile.querySelector('.profile-info');
-let profileInfoPerson = profileInfo.querySelector('.profile-info__person');
-let profileInfoTitle = profileInfoPerson.querySelector('.profile-info__title');
-let profileInfoSubtitle = profileInfoPerson.querySelector('.profile-info__subtitle');
 let popupContainer = popup.querySelector('.popup__container');
+let popupForm = popupContainer.querySelector('.popup__form');
 
-// выбираем текст из полей ввода
-let profileCopyName = profileInfoPerson.querySelector('.profile-info__title').textContent;
-let profileCopyJob = profileInfoPerson.querySelector('.profile-info__subtitle').textContent;
-let popupInputName = popupContainer.querySelector('.popup__input-name');
-let popupInputJob = popupContainer.querySelector('.popup__input-job');
+// профиль пользователя
+let profile = document.querySelector('.profile');
+let profileInfo = profile.querySelector('.profile-info');
+let editButton = profileInfo.querySelector('.edit-button');
+let profileName = profileInfo.querySelector('.profile-info__title');
+let profileJob = profileInfo.querySelector('.profile-info__subtitle');
 
-// открытие и закрытие попапа
-function togglePopup() {
-  popup.classList.toggle('popup_opened');
+// инпуты
+let popupInputName = popupForm.querySelector('.popup__input_name');
+let popupInputJob = popupForm.querySelector('.popup__input_job');
 
-  // ставим value для полей ввода
-  popupInputName.setAttribute('value', profileCopyName);
-  popupInputJob.setAttribute('value', profileCopyJob);
+// форма
+
+let formElement = popup.querySelector ('.popup__form');
+let saveButton = popup.querySelector ('.popup__save-button');
+
+// открытие попапа с копированием значений профиля
+function openPopup() {
+  popup.classList.add('popup_opened');
+  popupInputName.value = profileName.textContent;
+  popupInputJob.value = profileJob.textContent;
 }
 
-editButton.addEventListener('click', togglePopup);
-closeButton.addEventListener('click', togglePopup);
+editButton.addEventListener('click', openPopup);
 
-// записываем значения на страницу
-
-let saveButton = document.querySelector('.popup__save-button');
-
-function saveInf() {
-  profileInfoTitle.textContent = popupInputName.value;
-  profileInfoSubtitle.textContent = popupInputJob.value;
-  togglePopup();
+// закрытие попапа
+function closePopup() {
+  popup.classList.remove('popup_opened');
 }
-document.querySelector('.popup__form').addEventListener('submit', (event) => {
-  event.preventDefault()
-  saveInf();
-});
+
+closeButton.addEventListener('click', closePopup);
+
+
+// обработчик  формы
+
+function formSubmitHandler (evt) {
+  evt.preventDefault();
+
+  profileName.textContent = popupInputName.value;
+  profileJob.textContent = popupInputJob.value;
+
+  closePopup();
+}
+
+formElement.addEventListener('submit', formSubmitHandler);

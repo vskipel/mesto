@@ -1,3 +1,5 @@
+@import url('./__avatar/profile__avatar.css');
+
 .profile {
   padding-top: 40px;
   min-height: 120px;
@@ -19,6 +21,7 @@
     grid-template-areas:
       "avatar"
       "profile-info" 
+      "profile-info__subtitle"
       "add-button";
   }
 }

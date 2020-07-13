@@ -19,5 +19,7 @@
     line-height: 17px;
     margin: 0;
     max-width: 250px;
+    grid-area: subtitle;
+    margin-top: 10px;
   }
 }
