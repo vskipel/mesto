@@ -22,12 +22,11 @@
       <img src="./images/jacque-yve-cousteau.jpg" alt="Жак Ив Кусто" class="profile__avatar">
       <div class="profile-info">
         <h1 class="profile-info__title">Жак-Ив Кусто</h1>
-        <button class="edit-button"></button>
+        <button type="button" class="edit-button"></button>
         <p class="profile-info__subtitle">Исследователь океана</p>
       </div>
 
-      <button class="add-button">
-      </button>
+      <button type="button" class="add-button"></button>
     </section>
 
     <ul class="elements">
@@ -35,42 +34,42 @@
         <img src="./images/element-karachaevsk.jpg" alt="Карачаевск" class="element__image">
         <div class="element__caption">
           <h2 class="element__place">Карачаевск</h2>
-          <button class="element__like-button"></button>
+          <button type="button" class="element__like-button"></button>
         </div>
       </li>
       <li class="element">
         <img src="./images/element-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
         <div class="element__caption">
           <h2 class="element__place">Гора Эльбрус</h2>
-          <button class="element__like-button"></button>
+          <button type="button" class="element__like-button"></button>
         </div>
       </li>
       <li class="element">
         <img src="./images/element-dombai.jpg" alt="Домбай" class="element__image">
         <div class="element__caption">
           <h2 class="element__place">Домбай</h2>
-          <button class="element__like-button"></button>
+          <button type="button" class="element__like-button"></button>
         </div>
       </li>
       <li class="element">
         <img src="./images/element-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
         <div class="element__caption">
           <h2 class="element__place">Гора Эльбрус</h2>
-          <button class="element__like-button"></button>
+          <button type="button" class="element__like-button"></button>
         </div>
       </li>
       <li class="element">
         <img src="./images/element-dombai.jpg" alt="Домбай" class="element__image">
         <div class="element__caption">
           <h2 class="element__place">Домбай</h2>
-          <button class="element__like-button"></button>
+          <button type="button" class="element__like-button"></button>
         </div>
       </li>
       <li class="element">
         <img src="./images/element-karachaevsk.jpg" alt="Карачаево-Черкессия" class="element__image">
         <div class="element__caption">
           <h2 class="element__place">Карачаево-Черкессия</h2>
-          <button class="element__like-button"></button>
+          <button type="button" class="element__like-button"></button>
         </div>
       </li>
     </ul>
@@ -82,11 +81,11 @@
 
   <section class="popup">
     <div class="popup__container">
-      <button class="popup__close-button"></button>
+      <button type="button" class="popup__close-button"></button>
       <form action = "index.html" novalidate class="popup__form" name="popup__form" method="POST">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_name" value="" placeholder="...">
-        <input type="text" class="popup__input popup__input_job" value="" placeholder="...">
+        <input type="text" class="popup__input popup__input_name" name="popup__input_name" value="" placeholder="...">
+        <input type="text" class="popup__input popup__input_job" name="popup__input_job" value="" placeholder="...">
         <button class="popup__save-button" type="submit" id="savebutton">Сохранить</button>
       </form>
     </div>
