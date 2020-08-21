@@ -29,67 +29,59 @@
       <button type="button" class="add-button"></button>
     </section>
 
-    <ul class="elements">
-      <li class="element">
-        <img src="./images/element-karachaevsk.jpg" alt="Карачаевск" class="element__image">
-        <div class="element__caption">
-          <h2 class="element__place">Карачаевск</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img src="./images/element-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-        <div class="element__caption">
-          <h2 class="element__place">Гора Эльбрус</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img src="./images/element-dombai.jpg" alt="Домбай" class="element__image">
-        <div class="element__caption">
-          <h2 class="element__place">Домбай</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img src="./images/element-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-        <div class="element__caption">
-          <h2 class="element__place">Гора Эльбрус</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img src="./images/element-dombai.jpg" alt="Домбай" class="element__image">
-        <div class="element__caption">
-          <h2 class="element__place">Домбай</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img src="./images/element-karachaevsk.jpg" alt="Карачаево-Черкессия" class="element__image">
-        <div class="element__caption">
-          <h2 class="element__place">Карачаево-Черкессия</h2>
-          <button type="button" class="element__like-button"></button>
-        </div>
-      </li>
-    </ul>
+    <ul class="cards"></ul>
   </main>
 
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup">
+  <div class="popup popup_type_edit-profile">
     <div class="popup__container">
-      <button type="button" class="popup__close-button"></button>
-      <form action = "index.html" novalidate class="popup__form" name="popup__form" method="POST">
+      <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+      <form class="form" method="GET" action="#" name="form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_name" name="popup__input_name" value="" placeholder="...">
-        <input type="text" class="popup__input popup__input_job" name="popup__input_job" value="" placeholder="...">
-        <button class="popup__save-button" type="submit" id="savebutton">Сохранить</button>
+        <input class="popup__item popup__item-name" type="text" name="name" value="" placeholder="Ваше имя" required
+          aria-label="попап форма" />
+        <input class="popup__item popup__item-job" type="text" name="job value="" placeholder=" Род деятельности"
+          required aria-label="попап форма" />
+        <button class="popup__save-button" type="submit" aria-label="Сохранить">Сохранить</button>
       </form>
     </div>
-  </section>
+  </div>
+  <div class="popup popup_type_add-card">
+    <div class="popup__container">
+      <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+      <form class="form" method="GET" action="#" name="form">
+        <h2 class="popup__title">Новое место</h2>
+        <input class="popup__item popup__item-place" type="text" name="place" value="" placeholder="Название" required
+          aria-label="попап форма" />
+        <input class="popup__item popup__item-link" type="url" name="link" value="" placeholder="Ссылка на картинку"
+          required aria-label="попап форма" />
+        <button class="popup__save-button" type="submit" aria-label="Сохранить">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_image">
+    <div class="popup__image-container">
+      <button class="popup__image-close-icon" type="button" aria-label="Закрыть"></button>
+      <img class="popup__image" src="#" alt="" />
+      <h2 class="popup__subtitle"></h2>
+    </div>
+  </div>
+  </main>
+  </div>
+
+  <template class="template-card">
+    <li class="card">
+      <button class="card__button-delete" type="button" aria-label="Удалить"></button>
+      <img class="card__image" src="" alt="Изображение" />
+      <div class="card__elements">
+        <h2 class="card__title"></h2>
+        <button class="card__button-like" type="button" aria-label="Лайк"></button>
+      </div>
+    </li>
+  </template>
 
   <script src="./scripts/script.js"></script>
 </body>
