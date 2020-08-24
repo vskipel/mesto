@@ -54,12 +54,12 @@ const initialCards = [{
 
 // объявляем переменные
 
-let nameInput = document.querySelector(".popup__item-name");
-let jobInput = document.querySelector(".popup__item-job");
-let placeNameInput = document.querySelector(".popup__item-place");
-let linkPlaceInput = document.querySelector(".popup__item-link");
-let profileName = document.querySelector(".profile-info__title");
-let profileJob = document.querySelector(".profile-info__subtitle");
+const nameInput = document.querySelector(".popup__item-name");
+const jobInput = document.querySelector(".popup__item-job");
+const placeNameInput = document.querySelector(".popup__item-place");
+const linkPlaceInput = document.querySelector(".popup__item-link");
+const profileName = document.querySelector(".profile-info__title");
+const profileJob = document.querySelector(".profile-info__subtitle");
 
 // функции открытия и закрытия попапа
 
