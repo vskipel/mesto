@@ -137,3 +137,27 @@ addPopupClose.addEventListener("click", () => popupClosed(addPopup));
 imagePopupClose.addEventListener("click", () => popupClosed(imagePopup));
 editForm.addEventListener("submit", formSubmitHandlerEditProfile);
 addCardForm.addEventListener("submit", formSubmitHandlerAddCard);
+
+
+// закрываем попап по клику на esc
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    popupClosed(editPopup);
+    popupClosed(addPopup);
+    popupClosed(imagePopup);
+  }
+});
+
+// закрываем попап по клику на оверлей
+const closeOnBgClick = (evt) => {
+  if (evt.target === evt.currentTarget) {
+    popupClosed(editPopup);
+    popupClosed(addPopup);
+    popupClosed(imagePopup);
+  }
+};
+
+editPopup.addEventListener('click', closeOnBgClick);
+addPopup.addEventListener('click', closeOnBgClick);
+imagePopup.addEventListener('click', closeOnBgClick);
+
