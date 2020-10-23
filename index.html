@@ -39,30 +39,36 @@
   <div class="popup popup_type_edit-profile">
     <div class="popup__container">
       <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
-      <form class="form" method="GET" action="#" name="form">
+      <form class="form" method="GET" action="#" name="edit" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__item popup__item-name" type="text" name="name" value="" placeholder="Ваше имя" required
-          aria-label="попап форма">
-        <input class="popup__item popup__item-job" type="text" name="job" value="" placeholder="Род деятельности"
-          required aria-label="попап форма">
+        <input maxlength="40" minlength="2" class="popup__item popup__item-name" type="text" name="name" value=""
+          placeholder="Ваше имя" required aria-label="попап форма">
+        <span class="error" id="name-error"></span>
+        <input maxlength="200" minlength="2" class="popup__item popup__item-job" type="text" name="job" value=""
+          placeholder="Род деятельности" required aria-label="попап форма">
+        <span class="error" id="job-error"></span>
         <button class="popup__save-button" type="submit" aria-label="Сохранить">Сохранить</button>
       </form>
     </div>
   </div>
-  
+
+
   <div class="popup popup_type_add-card">
     <div class="popup__container">
       <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
-      <form class="form" method="GET" action="#" name="form">
+      <form class="form" method="GET" action="#" name="add" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__item popup__item-place" type="text" name="place" value="" placeholder="Название" required
-          aria-label="попап форма" />
+        <input maxlength="30" minlength="1" class="popup__item popup__item-place" type="text" name="place" value=""
+          placeholder="Название" required aria-label="попап форма" />
+        <span class="error" id="place-error"></span>
         <input class="popup__item popup__item-link" type="url" name="link" value="" placeholder="Ссылка на картинку"
           required aria-label="попап форма" />
-        <button class="popup__save-button" type="submit" aria-label="Сохранить">Создать</button>
+        <span class="error" id="link-error"></span>
+        <button class="popup__save-button" type="submit" aria-label="Создать">Создать</button>
       </form>
     </div>
   </div>
+
 
   <div class="popup popup_type_image">
     <div class="popup__image-container">
@@ -82,8 +88,10 @@
       </div>
     </li>
   </template>
+  <script src="./scripts/define.js"></script>
+  <script src="./scripts/validate.js"></script>
+  <script src="./scripts/index.js"></script>
 
-  <script src="./scripts/script.js"></script>
 </body>
 
 </html>
