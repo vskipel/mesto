@@ -41,7 +41,9 @@ function setEventListeners(formElement) {
 }
 
 // включаем валидацию всех форм
-function enableValidation({formSelector}) {
+function enableValidation({
+  formSelector
+}) {
   // делаем массив из всех форм на странице
   const formElements = Array.from(document.querySelectorAll(formSelector));
   // перебираем формы, чтобы на каждый сабмит навесить обработчик
