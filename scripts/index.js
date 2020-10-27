@@ -147,7 +147,6 @@ function handlePreviewPicture(cardData) {
 editPopupOpen.addEventListener("click", () => {
   formEditName.value = profileName.textContent;
   formEditJob.value = profileJob.textContent;
-
   popupOpened(editPopup);
 });
 
