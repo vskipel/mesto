@@ -19,14 +19,12 @@ function checkInputValidity(formElement, input, errorClass) {
 };
 
 function toggleButtonState(formElement, buttonElement, inactiveButtonClass) {
-  console.log(formElement.checkValidity());
-  console.log(inactiveButtonClass);
   if (formElement.checkValidity()) {
-    buttonElement.disabled = false;
     buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.disabled = false;
   } else {
-    buttonElement.disabled = true;
     buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.disabled = true;
   }
 };
 
@@ -38,11 +36,10 @@ function setEventListeners(formElement, {inputSelector, submitButtonSelector, in
       checkInputValidity(formElement, evt.target, errorClass);
       toggleButtonState(formElement, buttonElement, inactiveButtonClass);
     });
+    toggleButtonState(formElement, buttonElement, inactiveButtonClass);
   });
   
 }
-
-
 
 // включаем валидацию всех форм
 function enableValidation({

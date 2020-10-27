@@ -24,7 +24,6 @@ const imagePopupTitle = imagePopup.querySelector(".popup__subtitle");
 
 
 // объявляем переменные
-
 const nameInput = document.querySelector(".popup__item-name");
 const jobInput = document.querySelector(".popup__item-job");
 const placeNameInput = document.querySelector(".popup__item-place");
@@ -34,7 +33,6 @@ const profileJob = document.querySelector(".profile-info__subtitle");
 
 
 // достаем значения форм
-
 const formEdit = document.forms.edit;
 const formEditName = formEdit.elements.name;
 const formEditJob = formEdit.elements.job;
@@ -46,8 +44,27 @@ const formAddLinkInput = formAdd.elements.link;
 const editPopupSaveBtn = editPopup.querySelector(".popup__save-button");
 
 
-// включаем валидацию
 
+
+// функции открытия и закрытия попапа
+function popupOpened(popup) {
+  popup.classList.add("popup_opened");
+
+  // закрываем попап кликом на Esc
+  document.addEventListener('keydown', (evt) => {
+    if ((evt.key === "Escape")) {
+      popupClosed(popup);
+    }
+  });
+
+  // закрываем попап кликом на оверлей
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      popupClosed(popup);
+    };
+  });
+  // включаем валидацию 
+  // (в функции открытия, т.к. нужно проверять валидность при окрытии)
 enableValidation({
   formSelector: '.form',
   inputSelector: '.popup__item',
@@ -56,37 +73,13 @@ enableValidation({
   inputErrorClass: 'error',
   errorClass: 'popup__item_invalid',
 });
-
-
-
-
-// функции открытия и закрытия попапа
-
-function popupOpened(popup) {
-  popup.classList.add("popup_opened");
-// закрываем попап кликом на Esc
-  document.addEventListener('keydown', (evt) => {
-    if ((evt.key === "Escape")) {
-      popupClosed(popup);
-    }
-  });
-// закрываем попап кликом на оверлей
-  popup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      popupClosed(popup);
-    };
-  });
-
 };
 
 function popupClosed(popup) {
   popup.classList.remove("popup_opened");
 }
 
-
-
 // вывод в полях попапа значений со страницы
-
 function formSubmitHandlerEditProfile(evt) {
   evt.preventDefault();
   profileName.textContent = formEditName.value;
@@ -101,8 +94,8 @@ function formSubmitHandlerAddCard(evt) {
     link: formAddLinkInput.value
   });
   popupClosed(addPopup);
-  formAddPlaceInput.value = '';
-  formAddLinkInput.value = '';
+  formAdd.reset();
+
 }
 
 //перебираем элементы массива
@@ -149,9 +142,6 @@ function handlePreviewPicture(cardData) {
   imagePopupPicture.src = cardData.link;
   popupOpened(imagePopup);
 };
-
-
-
 
 // открываем попап профиля
 editPopupOpen.addEventListener("click", () => {
