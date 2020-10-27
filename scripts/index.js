@@ -147,9 +147,7 @@ function handlePreviewPicture(cardData) {
 editPopupOpen.addEventListener("click", () => {
   formEditName.value = profileName.textContent;
   formEditJob.value = profileJob.textContent;
-  // проверяем на валидность после копирования значений
-  // чтобы сделать кнопку сабмита активной
-  toggleButtonState(formEdit, editPopupSaveBtn);
+
   popupOpened(editPopup);
 });
 
@@ -163,7 +161,7 @@ formAdd.addEventListener("submit", formSubmitHandlerAddCard);
 
 
 
-const allPopups = Array.from(document.querySelectorAll('.popup'));
+//const allPopups = Array.from(document.querySelectorAll('.popup'));
 // // закрываем попап по клику на esc
 // document.addEventListener('keydown', (evt) => {
 //   if (evt.key === "Escape") {
