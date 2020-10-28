@@ -57,11 +57,9 @@ function handleEscDown(evt) {
 function handleOverlayClick(evt) {
   const openedPopup = document.querySelector(".popup_opened");
   if (evt.target === evt.currentTarget) {
-        popupClosed(openedPopup);
-      };
+    popupClosed(openedPopup);
+  };
 };
-
-
 
 
 // функции открытия и закрытия попапа
@@ -69,21 +67,6 @@ function popupOpened(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener('keydown', handleEscDown);
   popup.addEventListener('click', handleOverlayClick);
-
-  // // закрываем попап кликом на Esc
-  // document.addEventListener('keydown', (evt) => {
-  //   if ((evt.key === "Escape")) {
-  //     popupClosed(popup);
-  //   }
-  // });
-
-  // // закрываем попап кликом на оверлей
-  // popup.addEventListener('click', (evt) => {
-  //   if (evt.target === evt.currentTarget) {
-  //     popupClosed(popup);
-  //   };
-  // });
-
 };
 
 // включаем валидацию 
@@ -181,26 +164,3 @@ imagePopupClose.addEventListener("click", () => popupClosed(imagePopup));
 formEdit.addEventListener("submit", formSubmitHandlerEditProfile);
 formAdd.addEventListener("submit", formSubmitHandlerAddCard);
 
-
-
-//const allPopups = Array.from(document.querySelectorAll('.popup'));
-// // закрываем попап по клику на esc
-// document.addEventListener('keydown', (evt) => {
-//   if (evt.key === "Escape") {
-//     allPopups.forEach((popUp) => {
-//       popupClosed(popUp);
-//     });
-//   };
-// });
-
-
-// function closePopupsOnClick(evt) {
-//   allPopups.forEach((popUpTarget) => {
-//     popUpTarget.addEventListener('click', (evt) => {
-//       if (evt.target === evt.currentTarget) {
-//         popupClosed(popUpTarget);
-//       };
-//     });
-//   });
-// };
-// closePopupsOnClick()
