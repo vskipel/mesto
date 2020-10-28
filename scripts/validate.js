@@ -33,7 +33,7 @@ function setEventListeners(formElement, {inputSelector, submitButtonSelector, in
   const buttonElement = formElement.querySelector(submitButtonSelector);
   inputElements.forEach((input) => {
     input.addEventListener('input', (evt) => {
-      checkInputValidity(formElement, evt.target, errorClass);
+      checkInputValidity(formElement, input, errorClass);
       toggleButtonState(formElement, buttonElement, inactiveButtonClass);
     });
     toggleButtonState(formElement, buttonElement, inactiveButtonClass);
@@ -56,4 +56,3 @@ function enableValidation({
     setEventListeners(formElement, rest);
   });
 }
-
