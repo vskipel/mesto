@@ -43,7 +43,13 @@ const formAddLinkInput = formAdd.elements.link;
 
 const editPopupSaveBtn = editPopup.querySelector(".popup__save-button");
 
+// сбрасываем значения в форме "добавить место"
+function resetFormAdd(addPopup) {
+  popupClosed(addPopup);
+  formAdd.reset();
+}
 
+// функция закрытия попапа по клику на эскейп
 function handleEscDown(evt) {
   console.log(evt.key);
   const openedPopup = document.querySelector(".popup_opened");
@@ -51,13 +57,16 @@ function handleEscDown(evt) {
   if (evt.key === "Escape") {
     popupClosed(openedPopup);
     console.log(openedPopup);
+    resetFormAdd(addPopup);
   };
 };
 
+// функция закрытия попапа по клику на оверлей
 function handleOverlayClick(evt) {
   const openedPopup = document.querySelector(".popup_opened");
   if (evt.target === evt.currentTarget) {
     popupClosed(openedPopup);
+    resetFormAdd(addPopup); 
   };
 };
 
@@ -99,9 +108,7 @@ function formSubmitHandlerAddCard(evt) {
     name: formAddPlaceInput.value,
     link: formAddLinkInput.value
   });
-  popupClosed(addPopup);
-  formAdd.reset();
-
+  resetFormAdd(addPopup);
 }
 
 //перебираем элементы массива
@@ -159,7 +166,7 @@ editPopupOpen.addEventListener("click", () => {
 // отслеживаем действия пользователя
 addPopupOpen.addEventListener("click", () => popupOpened(addPopup));
 editPopupClose.addEventListener("click", () => popupClosed(editPopup));
-addPopupClose.addEventListener("click", () => popupClosed(addPopup));
+addPopupClose.addEventListener("click", () => resetFormAdd(addPopup));
 imagePopupClose.addEventListener("click", () => popupClosed(imagePopup));
 formEdit.addEventListener("submit", formSubmitHandlerEditProfile);
 formAdd.addEventListener("submit", formSubmitHandlerAddCard);
