@@ -1,7 +1,8 @@
 export class Card {
-  constructor(cardData, cardItemTemplateSelector) {
+  constructor(cardData, cardItemTemplateSelector, handlePreviewPicture) {
     this._cardData = cardData;
     this._templateCard = document.querySelector(cardItemTemplateSelector).content.querySelector(".card");
+    this._handlePreviewPicture = handlePreviewPicture;
   }
 
   _delete() {
@@ -22,7 +23,7 @@ export class Card {
 
     // добавляем выбираем картинку
     this._cardImg = this._cardElement.querySelector(".card__image");
-
+    this._cardImg.addEventListener('click', (evt) => this._handlePreviewPicture(this._cardData));
     this._cardImg.src = this._cardData.link;
 
 

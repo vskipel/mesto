@@ -119,10 +119,8 @@ function formSubmitHandlerAddCard(evt) {
 
 // функция создания карточки из класса
 const addCard = cardData => {
-  const listItem = new Card(cardData, cardItemTemplateSelector);
+  const listItem = new Card(cardData, cardItemTemplateSelector, handlePreviewPicture);
   sectionCards.prepend(listItem.renderCard(sectionCards));
-  const cardImage = document.querySelector('.card__image');
-  cardImage.addEventListener('click', (evt) => handlePreviewPicture(cardData));
 }
 
 // создаем карточки из массива
