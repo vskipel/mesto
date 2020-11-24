@@ -7,7 +7,9 @@ import {
 import {
   initialCards
 } from './define.js';
-
+// import {
+//   Section
+// } from './section.js';
 
 // объявляем константы
 // темплейт
