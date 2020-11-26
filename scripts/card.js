@@ -1,8 +1,8 @@
 export class Card {
-  constructor(cardData, cardItemTemplateSelector, handlePreviewPicture) {
+  constructor(cardData, cardItemTemplateSelector, handleCardClick) {
     this._cardData = cardData;
     this._templateCard = document.querySelector(cardItemTemplateSelector).content.querySelector(".card");
-    this._handlePreviewPicture = handlePreviewPicture;
+    this._handleCardClick = handleCardClick;
   }
 
   _delete() {
@@ -23,8 +23,10 @@ export class Card {
 
     // добавляем выбираем картинку
     this._cardImg = this._cardElement.querySelector(".card__image");
-    this._cardImg.addEventListener('click', (evt) => this._handlePreviewPicture(this._cardData));
     this._cardImg.src = this._cardData.link;
+
+    this._cardImg.addEventListener('click', (evt) => this._handleCardClick(this._cardData));
+    
 
 
     // слушатель удаления карточки

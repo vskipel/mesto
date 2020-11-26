@@ -1,13 +1,14 @@
 .popup__image {
-  max-width: 100%;
+  max-width: calc(100% - 16px);
   max-height: 75vh;
-  margin-right: 50px;
+  
 }
 
 @media screen and (max-width: 425px) {
   .popup__image {
     max-width: 280px;
     max-height: 100%;
-    margin-right: 20px;
+    justify-self: center;
+    margin-right: 0px;
   }
 }
