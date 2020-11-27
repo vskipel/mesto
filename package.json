@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "### Обзор Интерактивный проект о красотах России.",
+  "main": "index.js",
+  "dependencies": {
+    "prettier": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vskipel/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vskipel/mesto/issues"
+  },
+  "homepage": "https://github.com/vskipel/mesto#readme"
+}

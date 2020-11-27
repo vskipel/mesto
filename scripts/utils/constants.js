@@ -12,6 +12,9 @@ const editPopupOpen = document.querySelector(".edit-button");
 const addPopupOpen = document.querySelector(".add-button");
 const cardItemTemplateSelector = '.template-card';
 
+// кнопка эйскейп
+const escButton = "Escape";
+
 // включаем валидацию 
 const validationParameters = ({
   formSelector: '.form',
@@ -34,5 +37,6 @@ export {
   addPopupOpen,
   cardItemTemplateSelector,
   validationParameters,
-  formsArr
+  formsArr,
+  escButton
 }

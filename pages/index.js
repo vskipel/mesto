@@ -1,24 +1,24 @@
 import {
   Card
-} from './Card.js';
+} from '../scripts/components/Card.js';
 import {
   FormValidator
-} from './FormValidator.js';
+} from '../scripts/components/FormValidator.js';
 import {
   initialCards
-} from './utils/define.js';
+} from '../scripts/utils/define.js';
 import {
   Section
-} from './Section.js';
+} from '../scripts/components/Section.js';
 import {
   PopupWithImage
-} from './PopupWithImage.js';
+} from '../scripts/components/PopupWithImage.js';
 import {
   UserInfo
-} from './UserInfo.js';
+} from '../scripts/components/UserInfo.js';
 import {
   PopupWithForm
-} from './PopupWithForm.js';
+} from '../scripts/components/PopupWithForm.js';
 
 
 import {
@@ -31,7 +31,7 @@ import {
   cardItemTemplateSelector,
   validationParameters,
   formsArr
-} from './utils/constants.js';
+} from '../scripts/utils/constants.js';
 
 
 
