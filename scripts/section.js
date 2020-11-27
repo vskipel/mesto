@@ -8,15 +8,11 @@ export class Section {
       this._container = document.querySelector(containerSelector);
     }
 
-    
-
     renderItems() {
       this._items.forEach(item => this._renderer(item));
-      
     }
 
     setItem(element) {
       this._container.prepend(element);
     }
-
   }

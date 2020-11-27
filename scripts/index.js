@@ -1,12 +1,12 @@
 import {
   Card
-} from './card.js';
+} from './Card.js';
 import {
   FormValidator
-} from './formvalidator.js';
+} from './FormValidator.js';
 import {
   initialCards
-} from './define.js';
+} from './utils/define.js';
 import {
   Section
 } from './Section.js';
@@ -21,32 +21,19 @@ import {
 } from './PopupWithForm.js';
 
 
-// объявляем константы
-// темплейт
-const containerSelector = '.cards';
+import {
+  containerSelector,
+  editPopup,
+  addPopup,
+  imagePopup,
+  editPopupOpen,
+  addPopupOpen,
+  cardItemTemplateSelector,
+  validationParameters,
+  formsArr
+} from './utils/constants.js';
 
-// три попапа 
-const editPopup = document.querySelector(".popup_type_edit-profile");
-const addPopup = document.querySelector(".popup_type_add-card");
-const imagePopup = document.querySelector(".popup_type_image");
 
-// открытие попапов на главной
-const editPopupOpen = document.querySelector(".edit-button");
-const addPopupOpen = document.querySelector(".add-button");
-const cardItemTemplateSelector = '.template-card';
-
-// включаем валидацию 
-const validationParameters = ({
-  formSelector: '.form',
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'error',
-  errorClass: 'popup__item_invalid',
-});
-
-// создаем массив из всех форм
-const formsArr = Array.from(document.querySelectorAll('.form'));
 
 // добавляем валидацию всех форм при помощи класса
 formsArr.forEach((form) => {
@@ -54,7 +41,7 @@ formsArr.forEach((form) => {
   formValidation.enableValidation();
 })
 
-// вставляем карточки в разметку классом Section
+// рендерим карточки и вставляем в разметку классом Section
 const cardList = new Section({
     items: initialCards,
     renderer: (item) => {
@@ -72,6 +59,7 @@ const cardList = new Section({
   containerSelector)
 cardList.renderItems();
 
+// создаем класс добавления карточки
 const popupWithFormAddCard = new PopupWithForm({
   popupSelector: addPopup,
   handleFormSubmit: (item) => {

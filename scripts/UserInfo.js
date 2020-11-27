@@ -14,7 +14,7 @@ export class UserInfo  {
 
   }
 
-  setUserInfo(evt) {
+  setUserInfo() {
     
     const formEditName = document.forms.edit.elements.name;
     const formEditJob = document.forms.edit.elements.job;

@@ -24,10 +24,7 @@ export class Card {
     // добавляем выбираем картинку
     this._cardImg = this._cardElement.querySelector(".card__image");
     this._cardImg.src = this._cardData.link;
-
     this._cardImg.addEventListener('click', (evt) => this._handleCardClick(this._cardData));
-    
-
 
     // слушатель удаления карточки
     this._cardElement
