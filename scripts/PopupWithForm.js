@@ -33,6 +33,7 @@ export class PopupWithForm extends Popup {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
       this.close();
+      form.reset();
       
     })
   }
@@ -40,8 +41,7 @@ export class PopupWithForm extends Popup {
   close() {
     this._popup.classList.remove("popup_opened");
     const form = this._popup.querySelector(".form");
-    form.reset();
-    console.log(form)
+    
   }
 
 }

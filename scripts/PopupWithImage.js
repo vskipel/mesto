@@ -14,6 +14,7 @@ export class PopupWithImage extends Popup {
     this._popup.querySelector(".popup__image").src = this._cardData.link;
     document.addEventListener('keydown', this._handleEscClose.bind(this));
     this._popup.addEventListener('click', this._handleOverlayClose.bind(this));
+
     
   }
 

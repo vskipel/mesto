@@ -15,7 +15,7 @@ export class UserInfo  {
   }
 
   setUserInfo(evt) {
-    evt.preventDefault();
+    
     const formEditName = document.forms.edit.elements.name;
     const formEditJob = document.forms.edit.elements.job;
     const formName = document.querySelector(this._userName);
