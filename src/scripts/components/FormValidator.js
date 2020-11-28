@@ -8,19 +8,19 @@ export class FormValidator {
     this._inactiveButtonClass = validationParameters.inactiveButtonClass;
   }
 
-  // выводим ошибку
-  _showError = (input) => {
-    this._errorElement = this._form.querySelector(`#${input.name}-error`);
-    this._errorElement.textContent = input.validationMessage;
-    input.classList.add(this._errorClass);
-  }
-
   // скрываем ошибку
   _hideError = (input) => {
     this._errorElement = this._form.querySelector(`#${input.name}-error`);
     input.classList.remove(this._errorClass);
     this._errorElement.textContent = '';
-  }
+  };
+
+  // выводим ошибку
+  _showError = (input) => {
+    this._errorElement = this._form.querySelector(`#${input.name}-error`);
+    this._errorElement.textContent = input.validationMessage;
+    input.classList.add(this._errorClass);
+  };
 
   // проверяем валидность инпута
   _checkInputValidity = (input) => {

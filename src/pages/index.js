@@ -33,6 +33,8 @@ import {
   formsArr
 } from '../scripts/utils/constants.js';
 
+import '../pages/index.css'
+
 
 
 // добавляем валидацию всех форм при помощи класса

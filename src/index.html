@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
   <meta name="description" content="Место">
@@ -13,13 +13,13 @@
 
 <body class="page">
   <header class="header">
-    <img src="./images/mesto-logo.svg" alt="Место - логотип сайта" class="logo">
+    <img src="<%=require('./images/mesto-logo.svg')%>"  alt="Место - логотип сайта" class="logo">
   </header>
-
+  
   <main class="main">
 
     <section class="profile">
-      <img src="./images/jacque-yve-cousteau.jpg" alt="Жак Ив Кусто" class="profile__avatar">
+      <img src="<%=require('./images/jacque-yve-cousteau.jpg')%>" alt="Жак Ив Кусто" class="profile__avatar">
       <div class="profile-info">
         <h1 class="profile-info__title">Жак-Ив Кусто</h1>
         <button type="button" class="edit-button"></button>
@@ -90,7 +90,7 @@
   </template>
 
 
-  <script src="./pages/index.js" type="module"></script>
+  <!-- <script src="./pages/index.js" type="module"></script> -->
 
 </body>
 
