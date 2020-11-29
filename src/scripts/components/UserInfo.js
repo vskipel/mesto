@@ -1,29 +1,18 @@
 export class UserInfo {
   constructor(userName, userInfo) {
-    this._userName = userName;
-    this._userInfo = userInfo;
+    this._userName = document.querySelector(userName);
+    this._userInfo = document.querySelector(userInfo);
   }
+
   getUserInfo() {
-    const formEditName = document.forms.edit.elements.name;
-    const formEditJob = document.forms.edit.elements.job;
-    const formName = document.querySelector(this._userName);
-    const formJob = document.querySelector(this._userInfo);
-
-    formEditName.value = formName.textContent;
-    formEditJob.value = formJob.textContent;
-
+    return {
+      name: this._userName.textContent,
+      job: this._userInfo.textContent
+    }
   }
 
-  setUserInfo() {
-
-    const formEditName = document.forms.edit.elements.name;
-    const formEditJob = document.forms.edit.elements.job;
-    const formName = document.querySelector(this._userName);
-    const formJob = document.querySelector(this._userInfo);
-
-    formName.textContent = formEditName.value;
-    formJob.textContent = formEditJob.value;
-
+  setUserInfo(name, job) {
+    this._userName.textContent = name;
+    this._userInfo.textContent = job;
   }
-
 }

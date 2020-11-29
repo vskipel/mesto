@@ -9,11 +9,10 @@ export class PopupWithImage extends Popup {
     this._cardData = cardData;
   }
   open() {
-    this._popup.classList.add("popup_opened");
+    super.open();
     this._popup.querySelector(".popup__subtitle").textContent = this._cardData.name;
     this._popup.querySelector(".popup__image").src = this._cardData.link;
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
-    this._popup.addEventListener('click', this._handleOverlayClose.bind(this));
+    this._popup.querySelector(".popup__image").alt = `Изображение: ` + this._cardData.name;
   }
 
 }

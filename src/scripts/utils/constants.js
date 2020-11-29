@@ -12,6 +12,10 @@ const editPopupOpen = document.querySelector(".edit-button");
 const addPopupOpen = document.querySelector(".add-button");
 const cardItemTemplateSelector = '.template-card';
 
+// константы форм
+const formEdit = document.forms.edit;
+const formAdd = document.forms.add;
+
 // кнопка эйскейп
 const escButton = "Escape";
 
@@ -25,9 +29,6 @@ const validationParameters = ({
   errorClass: 'popup__item_invalid',
 });
 
-// создаем массив из всех форм
-const formsArr = Array.from(document.querySelectorAll('.form'));
-
 export {
   containerSelector,
   editPopup,
@@ -37,6 +38,7 @@ export {
   addPopupOpen,
   cardItemTemplateSelector,
   validationParameters,
-  formsArr,
-  escButton
+  escButton,
+  formEdit,
+  formAdd,
 }

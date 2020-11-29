@@ -7,6 +7,7 @@ export class Card {
 
   _delete() {
     this._cardElement.remove();
+    this._cardElement = null;
   }
 
   _like() {
@@ -14,7 +15,7 @@ export class Card {
   }
 
 
-  renderCard(sectionCards) {
+  renderCard() {
     // копируем разметку карточки
     this._cardElement = this._templateCard.cloneNode(true);
 
