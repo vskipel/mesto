@@ -53,7 +53,7 @@ const imagePopupOpen = new PopupWithImage(imagePopup);
 imagePopupOpen.setEventListeners(); 
 
 // функция открытия карточки с попапом картинки
-const openImagePopup = (item) => {
+const openImagePopupHandler = (item) => {
   imagePopupOpen.open(item);
 }
 
@@ -62,7 +62,7 @@ const openImagePopup = (item) => {
 const cardRenderer = (item) => {
   const card = new Card(item, cardItemTemplateSelector,
     (item) => {
-      openImagePopup(item)
+      openImagePopupHandler(item)
     }
   );
   const cardElement = card.renderCard();
