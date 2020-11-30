@@ -49,12 +49,12 @@ formAddValidation.enableValidation();
 
 
 
-const imagePopupOpen = (item) => new PopupWithImage(imagePopup, item);
-imagePopupOpen().setEventListeners();
+const imagePopupOpen = new PopupWithImage(imagePopup);
+imagePopupOpen.setEventListeners(); 
 
 // функция открытия карточки с попапом картинки
 const openImagePopup = (item) => {
-  imagePopupOpen(item).open();
+  imagePopupOpen.open(item);
 }
 
 
