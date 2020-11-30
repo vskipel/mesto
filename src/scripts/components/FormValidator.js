@@ -31,7 +31,7 @@ export class FormValidator {
     }
   }
   // изменение состояния кнопки сабмита
-  _toggleButtonState = () => {
+  toggleButtonState = () => {
     if (this._form.checkValidity()) {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
@@ -51,9 +51,9 @@ export class FormValidator {
       // устанавливаем слушатель на инпут
       input.addEventListener('input', (evt) => {
         this._checkInputValidity(input);
-        this._toggleButtonState(this._buttonElement);
+        this.toggleButtonState(this._buttonElement);
       });
-      this._toggleButtonState(this._buttonElement);
+      this.toggleButtonState(this._buttonElement);
     })
   };
   // публичный метод для включения валидации

@@ -46,11 +46,15 @@ formEditValidation.enableValidation();
 const formAddValidation = new FormValidator(formAdd, validationParameters);
 formAddValidation.enableValidation();
 
-// функция создания карточки с попапом картинки
+
+
+
+const imagePopupOpen = (item) => new PopupWithImage(imagePopup, item);
+imagePopupOpen().setEventListeners();
+
+// функция открытия карточки с попапом картинки
 const openImagePopup = (item) => {
-  const imagePopupOpen = new PopupWithImage(imagePopup, item);
-  imagePopupOpen.setEventListeners();
-  imagePopupOpen.open();
+  imagePopupOpen(item).open();
 }
 
 
@@ -87,6 +91,7 @@ const popupWithFormAddCard = new PopupWithForm({
 });
 popupWithFormAddCard.setEventListeners();
 addPopupOpen.addEventListener('click', () => {
+  formAddValidation.toggleButtonState();
   popupWithFormAddCard.open();
   
 })
@@ -111,6 +116,6 @@ editPopupOpen.addEventListener("click", () => {
   formEditProfile.getUserInfo();
   document.forms.edit.name.value = formEditProfile.getUserInfo().name;
   document.forms.edit.job.value = formEditProfile.getUserInfo().job;
-  formAddValidation.enableValidation();
+  formEditValidation.toggleButtonState();
   popupWithFormEditProfile.open();
 });

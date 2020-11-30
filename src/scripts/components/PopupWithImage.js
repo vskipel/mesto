@@ -11,8 +11,9 @@ export class PopupWithImage extends Popup {
   open() {
     super.open();
     this._popup.querySelector(".popup__subtitle").textContent = this._cardData.name;
-    this._popup.querySelector(".popup__image").src = this._cardData.link;
-    this._popup.querySelector(".popup__image").alt = `Изображение: ` + this._cardData.name;
+    const imagePopup = this._popup.querySelector(".popup__image")
+    imagePopup.src = this._cardData.link;
+    imagePopup.alt = `Изображение: ` + this._cardData.name;
   }
 
 }
