@@ -13,13 +13,14 @@
 
 <body class="page">
   <header class="header">
-    <img src="<%=require('./images/mesto-logo.svg')%>"  alt="Место - логотип сайта" class="logo">
+    <img src="<%=require('./images/mesto-logo.svg')%>" alt="Место - логотип сайта" class="logo">
   </header>
-  
+
   <main class="main">
 
     <section class="profile">
-      <img src="<%=require('./images/jacque-yve-cousteau.jpg')%>" alt="Жак Ив Кусто" class="profile__avatar">
+      <img src=" " alt="Жак Ив Кусто" class="profile__avatar">
+      <div class="profile__avatar-edit"></div>
       <div class="profile-info">
         <h1 class="profile-info__title">Жак-Ив Кусто</h1>
         <button type="button" class="edit-button"></button>
@@ -53,6 +54,7 @@
   </div>
 
 
+
   <div class="popup popup_type_add-card">
     <div class="popup__container">
       <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
@@ -70,6 +72,21 @@
   </div>
 
 
+  <div class="popup popup_type_update-avatar">
+    <div class="popup__container">
+      <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+      <form class="form" method="GET" action="#" name="avatar" novalidate>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <input class="popup__item popup__item-link" type="url" name="link" value="" placeholder="Ссылка на аватар"
+          required aria-label="попап форма" />
+        <span class="error" id="link-error"></span>
+        <button class="popup__save-button" type="submit" aria-label="Сохранить">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+
+
   <div class="popup popup_type_image">
     <div class="popup__image-container">
       <button class="popup__close-icon_image popup__close-icon" type="button" aria-label="Закрыть"></button>
@@ -78,6 +95,7 @@
     </div>
   </div>
 
+
   <template class="template-card">
     <li class="card">
       <button class="card__button-delete" type="button" aria-label="Удалить"></button>
@@ -85,9 +103,18 @@
       <div class="card__elements">
         <h2 class="card__title"></h2>
         <button class="card__button-like" type="button" aria-label="Лайк"></button>
+        <div class="card__button-likes-counter">1</div>
       </div>
     </li>
   </template>
+
+  <div class="popup popup_type_confirm">
+    <div class="popup__container">
+      <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button class="popup__save-button" type="submit" aria-label="Да">Да</button>
+    </div>
+  </div>
 
 
   <!-- <script src="./pages/index.js" type="module"></script> -->

@@ -2,10 +2,12 @@
 // темплейт
 const containerSelector = '.cards';
 
-// три попапа 
+// попапы 
 const editPopup = document.querySelector(".popup_type_edit-profile");
 const addPopup = document.querySelector(".popup_type_add-card");
 const imagePopup = document.querySelector(".popup_type_image");
+const updatePopup = document.querySelector(".popup_type_update-avatar");
+const confirmPopup = document.querySelector(".popup_type_confirm");
 
 // открытие попапов на главной
 const editPopupOpen = document.querySelector(".edit-button");
@@ -18,6 +20,9 @@ const formAdd = document.forms.add;
 
 // кнопка эйскейп
 const escButton = "Escape";
+
+const templateCard = document.querySelector(".template-card");
+const deleteButton = templateCard.querySelector(".card__button-delete");
 
 // включаем валидацию 
 const validationParameters = ({
@@ -41,4 +46,7 @@ export {
   escButton,
   formEdit,
   formAdd,
+  updatePopup,
+  confirmPopup,
+  deleteButton
 }

@@ -1,4 +1,7 @@
 @import url('./__avatar/profile__avatar.css');
+@import url('./__avatar-edit/profile__avatar-edit1.css');
+@import url('./__avatar-edit/profile__avatar-edit.css');
+
 
 .profile {
   padding-top: 40px;
