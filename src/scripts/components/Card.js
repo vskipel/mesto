@@ -1,5 +1,5 @@
 export class Card {
-  constructor(cardData, cardItemTemplateSelector, handleCardClick) {
+  constructor(cardData, cardItemTemplateSelector, handleCardClick, api) {
     this._cardData = cardData;
     this._templateCard = document.querySelector(cardItemTemplateSelector).content.querySelector(".card");
     this._handleCardClick = handleCardClick;
@@ -14,7 +14,6 @@ export class Card {
     this._likeButton.classList.toggle("card__button-like_active");
   }
 
-
   renderCard() {
     // копируем разметку карточки
     this._cardElement = this._templateCard.cloneNode(true);
@@ -22,10 +21,14 @@ export class Card {
     // добавляем название места
     this._cardElement.querySelector(".card__title").textContent = this._cardData.name;
 
-    // добавляем выбираем картинку
+    // добавляем картинку
     this._cardImg = this._cardElement.querySelector(".card__image");
     this._cardImg.src = this._cardData.link;
     this._cardImg.addEventListener('click', (evt) => this._handleCardClick(this._cardData));
+
+    // добавляем счетчик лайков 
+    console.log(this._cardData.likes);
+    this._cardElement.querySelector(".card__button-likes-counter").textContent = this._cardData.likes;
 
     // слушатель удаления карточки
     this._cardElement

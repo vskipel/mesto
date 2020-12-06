@@ -50,67 +50,145 @@ import {
 
 
 
-// вставляем данные с сервера в данные профиля
-function getProfileInfo() {
-  fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me', {
-      headers: {
-        authorization: 'e9b15767-4b50-4f24-9b84-b0128a0d1268'
-      }
-    })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      document.querySelector('.profile__avatar').src = data.avatar;
-      document.querySelector('.profile-info__title').textContent = data.name;
-      document.querySelector('.profile-info__subtitle').textContent = data.about;
-    })
-}
-getProfileInfo();
+// // вставляем данные с сервера в данные профиля
+// function setProfileInfo() {
+//   fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me', {
+//       headers: {
+//         authorization: 'e9b15767-4b50-4f24-9b84-b0128a0d1268'
+//       }
+//     })
+//     .then((res) => {
+//       return res.json();
+//     })
+//     .then((data) => {
+//       document.querySelector('.profile__avatar').src = data.avatar;
+//       document.querySelector('.profile-info__title').textContent = data.name;
+//       document.querySelector('.profile-info__subtitle').textContent = data.about;
+//     })
+// }
+// setProfileInfo();
 
-const api = new Api({
+
+// создаем класс АПИ для получения данных профиля
+const apiProfile = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
+  headers: {
+    "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+  }
+})
+
+// устанавливаем данные профиля
+const setProfileInfo = apiProfile.getProfileInfo();
+setProfileInfo.then((data) => {
+  document.querySelector('.profile__avatar').src = data.avatar;
+  document.querySelector('.profile__avatar').alt = data.name;
+  document.querySelector('.profile-info__title').textContent = data.name;
+  document.querySelector('.profile-info__subtitle').textContent = data.about;
+})
+
+
+
+
+
+
+
+
+// создаем класс для обработки попапа профиля 
+const formEditProfile = new UserInfo('.profile-info__title', '.profile-info__subtitle');
+
+const popupWithFormEditProfile = new PopupWithForm({
+  popupSelector: editPopup,
+  handleFormSubmit: (item) => {
+    // создаем копию класса АПИ для изменения данных профиля
+    const updateProfile = new Api({
+      url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
+      headers: {
+        "method": 'PATCH',
+        "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        name: item.name,
+        about: item.job
+      })
+    })
+    updateProfile.setProfileInfo();
+    formEditProfile.setUserInfo(item.name, item.job);
+  }
+});
+
+popupWithFormEditProfile.setEventListeners();
+
+// функция рендера карточки для создания карточек из массива и формы
+const cardRenderer = (item) => {
+  const card = new Card(item, cardItemTemplateSelector,
+    (item) => {
+      openImagePopupHandler(item)
+    }
+  );
+  const cardElement = card.renderCard();
+  cardList.setItem(cardElement);
+}
+
+// создаем класс добавления карточки
+const popupWithFormAddCard = new PopupWithForm({
+  popupSelector: addPopup,
+  handleFormSubmit: (item) => {
+    const addCard = new Api({
+      url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+      headers: {
+        "method": 'POST',
+        "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        name: item.name,
+        link: item.link,
+        likes: [10]
+      })
+    })
+    addCard.addCard(item)
+    
+    cardRenderer(item)
+  }
+});
+
+
+popupWithFormAddCard.setEventListeners();
+addPopupOpen.addEventListener('click', () => {
+  formAddValidation.toggleButtonState();
+  popupWithFormAddCard.open();
+
+})
+
+
+// рендерим карточки и вставляем в разметку классом Section
+const cardList = new Section(containerSelector);
+
+const apiCards = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
   headers: {
-    "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
-    "content-type": "application/json"
+    "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
   }
 })
 
 
-
-const cards = api.getInitialCards()
+// добавляем карточки с сервера
+const cards = apiCards.getInitialCards();
 cards.then((data) => {
-  data.forEach((item) =>
-    {const card = new Card(item, cardItemTemplateSelector,
+  data.forEach((item) => {
+    const card = new Card(item, cardItemTemplateSelector,
       (item) => {
         openImagePopupHandler(item)
-      }
+      }, apiCards
     )
-  
-  cardList.setItem(card.renderCard());
+    cardList.setItem(card.renderCard());
   })
 })
 
-// функция рендера карточки для создания карточек из массива и формы
-// const cardRenderer = (item) => {
-//   const card = new Card(item, cardItemTemplateSelector,
-//     (item) => {
-//       openImagePopupHandler(item)
-//     }
-//   );
-//   const cardElement = card.renderCard();
-//   cardList.setItem(cardElement);
-// }
 
-// рендерим карточки и вставляем в разметку классом Section
-const cardList = new Section({
-    items: initialCards,
-    renderer: (item) => {
-      cardRenderer(item)
-    },
-  },
-  containerSelector)
-cardList.renderItems();
+
+
 
 
 // function getCards() {
@@ -157,34 +235,10 @@ const openImagePopupHandler = (item) => {
 
 
 
-// создаем класс добавления карточки
-const popupWithFormAddCard = new PopupWithForm({
-  popupSelector: addPopup,
-  handleFormSubmit: (item) => {
-    cardRenderer(item)
-  }
-});
-popupWithFormAddCard.setEventListeners();
-addPopupOpen.addEventListener('click', () => {
-  formAddValidation.toggleButtonState();
-  popupWithFormAddCard.open();
-
-})
 
 
 
-// создаем класс для обработки попапа профиля 
-const formEditProfile = new UserInfo('.profile-info__title', '.profile-info__subtitle');
 
-const popupWithFormEditProfile = new PopupWithForm({
-  popupSelector: editPopup,
-  handleFormSubmit: (item) => {
-
-    formEditProfile.setUserInfo(item.name, item.job);
-  }
-});
-
-popupWithFormEditProfile.setEventListeners();
 
 
 // открываем попап профиля

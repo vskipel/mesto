@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor(userName, userInfo) {
+  constructor(userName, userInfo, api) {
     this._userName = document.querySelector(userName);
     this._userInfo = document.querySelector(userInfo);
+    
   }
 
   getUserInfo() {
