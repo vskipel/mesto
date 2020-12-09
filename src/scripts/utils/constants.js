@@ -8,16 +8,20 @@ const addPopup = document.querySelector(".popup_type_add-card");
 const imagePopup = document.querySelector(".popup_type_image");
 const updatePopup = document.querySelector(".popup_type_update-avatar");
 const confirmPopup = document.querySelector(".popup_type_confirm");
+const avatarPopup = document.querySelector(".popup_type_update-avatar");
 
 
 // открытие попапов на главной
 const editPopupOpen = document.querySelector(".edit-button");
 const addPopupOpen = document.querySelector(".add-button");
+const editAvatarPopupOpen = document.querySelector(".profile__avatar-edit");
+
 const cardItemTemplateSelector = '.template-card';
 
 // константы форм
 const formEdit = document.forms.edit;
 const formAdd = document.forms.add;
+const formUpdateAvatar = document.forms.avatar;
 
 // кнопка эйскейп
 const escButton = "Escape";
@@ -51,5 +55,8 @@ export {
   formAdd,
   updatePopup,
   confirmPopup,
-  deleteButton
+  deleteButton,
+  avatarPopup,
+  editAvatarPopupOpen,
+  formUpdateAvatar
 }

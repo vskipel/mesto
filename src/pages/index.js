@@ -37,7 +37,10 @@ import {
   formAdd,
   updatePopup,
   confirmPopup,
-  deleteButton
+  deleteButton,
+  avatarPopup,
+  editAvatarPopupOpen,
+  formUpdateAvatar
 
 } from '../scripts/utils/constants.js';
 
@@ -184,9 +187,7 @@ apiProfile.getProfileInfo()
                 }
               },
               cardItemTemplateSelector)
-              
             cardList.setItem(card.renderCard())
-            
           }))
       })
       .catch((err) => console.log("Ошибка при рендере карточек с сервера " + err))
@@ -213,6 +214,27 @@ apiProfile.getProfileInfo()
           }
         });
 
+        
+        // создаем класс обновления аватара
+        const popupUpdateAvatar = new PopupWithForm({
+          popupSelector: avatarPopup,
+          handleFormSubmit: (value) => {
+            const updateAvatar = new Api({
+              url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar",
+              headers: {
+                "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
+                "content-type": "application/json"
+              },
+              body: JSON.stringify({
+                avatar: value.link,
+              })
+            })
+            updateAvatar.updateAvatar(value.link)
+            .then(apiProfile.getProfileInfo())
+            .then((data) => document.querySelector('.profile__avatar').src = data.avatar)
+          }
+        });
+
         // функция рендера карточки для создания карточек из массива и формы
         const cardRenderer = (item) => {
           const card = new Card({
@@ -226,6 +248,11 @@ apiProfile.getProfileInfo()
           const cardElement = card.renderCard();
           cardList.setItem(cardElement);
         }
+
+        popupUpdateAvatar.setEventListeners();
+        editAvatarPopupOpen.addEventListener('click', () => {
+          popupUpdateAvatar.open();
+        })
 
         popupWithFormAddCard.setEventListeners();
         addPopupOpen.addEventListener('click', () => {
@@ -286,6 +313,42 @@ const popupWithSubmitHandler = new PopupWithSubmit({
 });
 
 
+//включаем валидацию формы изменения профиля
+const formEditValidation = new FormValidator(formEdit, validationParameters);
+formEditValidation.enableValidation();
+
+// включаем валидацию формы добавления карточки
+const formAddValidation = new FormValidator(formAdd, validationParameters);
+formAddValidation.enableValidation();
+
+// включаем валидацию формы обновления аватара
+const formAvatarUpdateValidation = new FormValidator(formUpdateAvatar, validationParameters);
+formAvatarUpdateValidation.enableValidation();
+
+
+
+
+
+const imagePopupOpen = new PopupWithImage(imagePopup);
+imagePopupOpen.setEventListeners();
+
+// функция открытия карточки с попапом картинки
+const openImagePopupHandler = (item) => {
+  imagePopupOpen.open(item);
+}
+
+
+
+
+
+// открываем попап профиля
+editPopupOpen.addEventListener("click", () => {
+  formEditProfile.getUserInfo();
+  document.forms.edit.name.value = formEditProfile.getUserInfo().name;
+  document.forms.edit.job.value = formEditProfile.getUserInfo().job;
+  formEditValidation.toggleButtonState();
+  popupWithFormEditProfile.open();
+});
 
 
 
@@ -420,43 +483,6 @@ const popupWithSubmitHandler = new PopupWithSubmit({
 
 
 
-//включаем валидацию формы изменения профиля
-const formEditValidation = new FormValidator(formEdit, validationParameters);
-formEditValidation.enableValidation();
-
-// включаем валидацию формы добавления карточки
-const formAddValidation = new FormValidator(formAdd, validationParameters);
-formAddValidation.enableValidation();
-
-
-
-
-const imagePopupOpen = new PopupWithImage(imagePopup);
-imagePopupOpen.setEventListeners();
-
-// функция открытия карточки с попапом картинки
-const openImagePopupHandler = (item) => {
-  imagePopupOpen.open(item);
-}
-
-
-
-
-
-
-
-
-
-
-
-// открываем попап профиля
-editPopupOpen.addEventListener("click", () => {
-  formEditProfile.getUserInfo();
-  document.forms.edit.name.value = formEditProfile.getUserInfo().name;
-  document.forms.edit.job.value = formEditProfile.getUserInfo().job;
-  formEditValidation.toggleButtonState();
-  popupWithFormEditProfile.open();
-});
 
 // // рендерим карточки и вставляем в разметку классом Section
 // const cardList = new Section({

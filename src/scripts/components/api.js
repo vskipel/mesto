@@ -71,6 +71,20 @@ export class Api {
     })
   }
 
+  updateAvatar(link) {
+    return fetch(this._url, {
+      method: "PATCH",
+      headers: this._headers,
+      body: this._body,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject("Произошла ошибка")
+      }
+    })
+  }
+
 
   getProfileInfo() {
     return fetch(this._url, {

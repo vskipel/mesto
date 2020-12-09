@@ -69,7 +69,8 @@ export class Card {
 
 
 
-    this._removeDeleteButton() 
+    const delButtonRemover = () => this._removeDeleteButton();
+    delButtonRemover();
 
 
     
