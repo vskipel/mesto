@@ -44,6 +44,34 @@ export class Api {
     })
   }
 
+
+  likeCard(id) {
+    return fetch(`${this._url}${id}`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject("Произошла ошибка")
+      }
+    })
+  }
+
+  removeLikeCard(id) {
+    return fetch(`${this._url}${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject("Произошла ошибка")
+      }
+    })
+  }
+
+
   getProfileInfo() {
     return fetch(this._url, {
       method: "GET",

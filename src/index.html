@@ -103,16 +103,18 @@
       <div class="card__elements">
         <h2 class="card__title"></h2>
         <button class="card__button-like" type="button" aria-label="Лайк"></button>
-        <div class="card__button-likes-counter">0</div>
+        <div class="card__button-likes-counter"></div>
       </div>
     </li>
   </template>
 
   <div class="popup popup_type_confirm">
     <div class="popup__container">
+
       <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Вы уверены?</h2>
-      <button class="popup__save-button" type="submit" aria-label="Да">Да</button>
+      <form class="form" method="GET" action="#" name="confirm" novalidate><button class="popup__save-button"
+        type="submit" aria-label="Да">Да</button></form>
     </div>
   </div>
 

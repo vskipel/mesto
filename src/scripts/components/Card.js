@@ -1,8 +1,27 @@
 export class Card {
-  constructor(cardData, cardItemTemplateSelector, handleCardClick, api) {
-    this._cardData = cardData;
+  constructor({
+    data,
+    handleCardClick,
+    handleLikeClick,
+    handleRemoveClick,
+    renderDeleteButton,
+    likeButtonState,
+    handleDeleteIconClick,
+
+  }, cardItemTemplateSelector) {
+    this._cardData = data;
     this._templateCard = document.querySelector(cardItemTemplateSelector).content.querySelector(".card");
     this._handleCardClick = handleCardClick;
+    this._handleRemoveClick = handleRemoveClick;
+    this._handleLikeClick = handleLikeClick;
+    this._renderDeleteButton = renderDeleteButton;
+    this._likeButtonState = likeButtonState;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+
+  }
+
+  _deletePopup() {
+    this._cardElement.remove();
   }
 
   _delete() {
@@ -11,7 +30,25 @@ export class Card {
   }
 
   _like() {
-    this._likeButton.classList.toggle("card__button-like_active");
+    // this._likeButtonState(this._cardData, this._likeButton)
+    this._handleLikeClick(this._cardData, this._cardElement);
+    // this._likeButtonState(this._cardData, this._likeButton)
+  }
+
+  _setLikesState() {
+
+  }
+
+  _removeDeleteButton() {
+    // убираем кнопку удаления с чужих карточек
+    this._deleteButton = this._cardElement.querySelector(".card__button-delete")
+    this._renderDeleteButton(this._deleteButton)
+  }
+
+  _removeLike() {
+
+    this._likeButton.classList.remove("card__button-like_active");
+    this._handleRemoveClick(this._cardData);
   }
 
   renderCard() {
@@ -26,18 +63,30 @@ export class Card {
     this._cardImg.src = this._cardData.link;
     this._cardImg.addEventListener('click', (evt) => this._handleCardClick(this._cardData));
 
-    // добавляем счетчик лайков 
-    console.log(this._cardData.likes);
-    this._cardElement.querySelector(".card__button-likes-counter").textContent = this._cardData.likes;
+    // определим массив лайков карточки
+    this._likesArr = this._cardData.likes;
 
-    // слушатель удаления карточки
-    this._cardElement
-      .querySelector(".card__button-delete")
-      .addEventListener('click', this._delete.bind(this));
+
+
+
+    this._removeDeleteButton() 
+
+
+    
+
+
     // выбираем кнопку лайка
     this._likeButton = this._cardElement.querySelector(".card__button-like");
-    // добавляем слушатель и вызываем в коллбеке функцию на кнопку лайка
-    this._likeButton.addEventListener('click', this._like.bind(this));
+    
+    this._likeButtonState(this._cardData, this._likeButton, this._cardElement)
+
+
+    // // добавляем слушатель и вызываем в коллбеке функцию на кнопку лайка
+    this._likeButton.addEventListener('click', () => this._like())
+
+    // слушатель удаления карточки
+    this._deleteButton.addEventListener('click', () => this._handleDeleteIconClick(this._cardData, this._cardElement));
+
 
     return this._cardElement;
   }

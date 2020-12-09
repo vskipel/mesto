@@ -45,7 +45,9 @@ import '../pages/index.css'
 import {
   Popup
 } from '../scripts/components/Popup.js';
-
+import {
+  PopupWithSubmit
+} from '../scripts/components/PopupWithSubmit.js';
 
 
 
@@ -76,16 +78,168 @@ const apiProfile = new Api({
     "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
   }
 })
+apiProfile.getProfileInfo()
+  .then((data) => {
+    document.querySelector('.profile__avatar').src = data.avatar;
+    document.querySelector('.profile__avatar').alt = data.name;
+    document.querySelector('.profile-info__title').textContent = data.name;
+    document.querySelector('.profile-info__subtitle').textContent = data.about;
 
-// устанавливаем данные профиля
-const setProfileInfo = apiProfile.getProfileInfo();
-setProfileInfo.then((data) => {
-  document.querySelector('.profile__avatar').src = data.avatar;
-  document.querySelector('.profile__avatar').alt = data.name;
-  document.querySelector('.profile-info__title').textContent = data.name;
-  document.querySelector('.profile-info__subtitle').textContent = data.about;
-})
+    const profileData = data;
+    console.log(profileData)
 
+
+    // рендерим карточки и вставляем в разметку классом Section
+    const cardList = new Section(containerSelector);
+
+    const apiCards = new Api({
+      url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+      headers: {
+        "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+      }
+    })
+
+    // добавляем карточки с сервера
+    const cards = apiCards.getInitialCards();
+
+    cards.then((data) => {
+        Promise.all([data])
+          .then(data.forEach((item) => {
+            const isLiked = () => item.likes.find(person => (person._id === profileData._id));
+            const card = new Card({
+                data: item,
+                handleCardClick: (item) => {
+                  openImagePopupHandler(item)
+                },
+                handleLikeClick: (cardData, cardElement) => {
+                  const likeCard = new Api({
+                    url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/",
+                    headers: {
+                      "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+                    }
+                  })
+
+                  if (isLiked()) {
+                    console.log('LIKE REMOVED')
+                    likeCard.removeLikeCard(cardData._id)
+                      .then((cardElement.querySelector(".card__button-like").classList.remove("card__button-like_active")))
+                      .then((res) => (cardElement.querySelector(".card__button-likes-counter").textContent = res.likes.length))
+                      .then(item.likes.pop(profileData))
+
+
+                  } else {
+                    console.log('LIKED')
+                    likeCard.likeCard(cardData._id)
+                      .then((cardElement.querySelector(".card__button-like").classList.add("card__button-like_active")))
+                      .then((res) => (cardElement.querySelector(".card__button-likes-counter").textContent = res.likes.length))
+                      .then(cardData.likes.push(profileData))
+                  }
+
+                },
+
+
+                likeButtonState: (cardData, likeButton, cardElement) => {
+
+                  function likesCounter() {
+                    cardElement.querySelector(".card__button-likes-counter").textContent = cardData.likes.length;
+                  }
+
+                  if (isLiked()) {
+                    console.log('я лайкнул')
+                    likesCounter()
+                    likeButton.classList.add("card__button-like_active");
+
+
+                  } else {
+                    likesCounter()
+                    likeButton.classList.remove("card__button-like_active");
+                  }
+
+                },
+
+                renderDeleteButton: (deleteButton) => {
+                  function compareRes(ids) {
+                    if (!ids) {
+                      deleteButton.remove();
+                    }
+                  }
+                  return compareRes(profileData._id === item.owner._id)
+                },
+
+
+                handleDeleteIconClick: (item, cardElement) => {
+                  const confirmDelPopup = new PopupWithSubmit(confirmPopup);
+                  const deleteCard = new Api({
+                    url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/",
+                    headers: {
+                      "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+                    }
+                  })
+
+                  function deleteThisCard(item) {
+                    deleteCard.deleteCard(item._id);
+                  }
+                  confirmDelPopup.setEventListeners(deleteThisCard, item, cardElement);
+                  confirmDelPopup.open();
+                }
+              },
+              cardItemTemplateSelector)
+              
+            cardList.setItem(card.renderCard())
+            
+          }))
+      })
+      .catch((err) => console.log("Ошибка при рендере карточек с сервера " + err))
+      .then((res) => {
+        // создаем класс добавления карточки
+        const popupWithFormAddCard = new PopupWithForm({
+          popupSelector: addPopup,
+          handleFormSubmit: (item) => {
+            const addCard = new Api({
+              url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+              headers: {
+                "method": 'POST',
+                "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
+                "content-type": "application/json"
+              },
+              body: JSON.stringify({
+                name: item.name,
+                link: item.link,
+              })
+            })
+            addCard.addCard(item)
+
+            cardRenderer(item)
+          }
+        });
+
+        // функция рендера карточки для создания карточек из массива и формы
+        const cardRenderer = (item) => {
+          const card = new Card({
+              data: item
+            }, cardItemTemplateSelector,
+            (item) => {
+              openImagePopupHandler(item)
+            },
+            popupWithSubmitHandler
+          );
+          const cardElement = card.renderCard();
+          cardList.setItem(cardElement);
+        }
+
+        popupWithFormAddCard.setEventListeners();
+        addPopupOpen.addEventListener('click', () => {
+          formAddValidation.toggleButtonState();
+          popupWithFormAddCard.open();
+
+        })
+
+
+
+      })
+
+
+  })
 
 
 
@@ -100,93 +254,147 @@ const popupWithFormEditProfile = new PopupWithForm({
   popupSelector: editPopup,
   handleFormSubmit: (item) => {
     // создаем копию класса АПИ для изменения данных профиля
-    const updateProfile = new Api({
-      url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
-      headers: {
-        "method": 'PATCH',
-        "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        name: item.name,
-        about: item.job
+    const updateProfile =
+      new Api({
+        url: "https://mesto.nomoreparties.co/v1/cohort-18/users/me",
+        headers: {
+          "method": 'PATCH',
+          "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          name: item.name,
+          about: item.job
+        })
       })
-    })
-    updateProfile.setProfileInfo();
+
+
+    updateProfile.setProfileInfo(item);
     formEditProfile.setUserInfo(item.name, item.job);
   }
 });
 
 popupWithFormEditProfile.setEventListeners();
 
-// функция рендера карточки для создания карточек из массива и формы
-const cardRenderer = (item) => {
-  const card = new Card(item, cardItemTemplateSelector,
-    (item) => {
-      openImagePopupHandler(item)
-    }
-  );
-  const cardElement = card.renderCard();
-  cardList.setItem(cardElement);
-}
 
-// создаем класс добавления карточки
-const popupWithFormAddCard = new PopupWithForm({
-  popupSelector: addPopup,
-  handleFormSubmit: (item) => {
-    const addCard = new Api({
-      url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
-      headers: {
-        "method": 'POST',
-        "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268",
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        name: item.name,
-        link: item.link,
-        likes: [10]
-      })
-    })
-    addCard.addCard(item)
-    
-    cardRenderer(item)
-  }
+
+
+
+// создаем класс удаления карточки
+const popupWithSubmitHandler = new PopupWithSubmit({
+  popupSelector: confirmPopup,
 });
 
 
-popupWithFormAddCard.setEventListeners();
-addPopupOpen.addEventListener('click', () => {
-  formAddValidation.toggleButtonState();
-  popupWithFormAddCard.open();
-
-})
 
 
-// рендерим карточки и вставляем в разметку классом Section
-const cardList = new Section(containerSelector);
-
-const apiCards = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
-  headers: {
-    "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
-  }
-})
 
 
-// добавляем карточки с сервера
-const cards = apiCards.getInitialCards();
-cards.then((data) => {
-  data.forEach((item) => {
-    const card = new Card(item, cardItemTemplateSelector,
-      (item) => {
-        openImagePopupHandler(item)
-      }, apiCards
-    )
-    cardList.setItem(card.renderCard());
-  })
-})
+// // функция рендера карточки для создания карточек из массива и формы
+// const cardRenderer = (item) => {
+//   const card = new Card(item, cardItemTemplateSelector,
+//     (item) => {
+//       openImagePopupHandler(item)
+//     },
+//     popupWithSubmitHandler
+//   );
+//   const cardElement = card.renderCard();
+//   cardList.setItem(cardElement);
+// }
 
 
+
+
+
+
+// // рендерим карточки и вставляем в разметку классом Section
+// const cardList = new Section(containerSelector);
+
+// const apiCards = new Api({
+//   url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
+//   headers: {
+//     "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+//   }
+// })
+
+
+
+
+
+// // добавляем карточки с сервера
+// const cards = apiCards.getInitialCards();
+
+
+
+// cards.then((data) => {
+//   Promise.all([data])
+//     .then(data.map((item) => {
+//       const card = new Card({
+//           data: item,
+//           handleCardClick: (item) => {
+//             openImagePopupHandler(item)
+//           },
+//           handleLikeClick: (id) => {
+//             const likeCard = new Api({
+//               url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/",
+//               headers: {
+//                 "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+//               }
+//             })
+//             likeCard.likeCard(item._id);
+
+//           },
+//           handleRemoveClick: () => {
+//             const removeLikeCard = new Api({
+//               url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/",
+//               headers: {
+//                 "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+//               }
+//             })
+//             removeLikeCard.removeLikeCard(item._id);
+
+//           },
+//           renderDeleteButton: (deleteButton) => {
+//             const isItMyCard = apiProfile.getProfileInfo()
+//               .then((data) => data._id === item.owner._id)
+//               .catch((err) => console.log(err))
+
+//             function compareRes(res) {
+//               if (res) {
+
+//                 console.log('Внатуре моя карточка')
+//               } else {
+//                 console.log('не моя')
+//                 deleteButton.remove();
+//               }
+//             }
+
+//             return isItMyCard.then((res) => compareRes(res))
+//           },
+
+//           handleDeleteIconClick: (item) => {
+//             const confirmDelPopup = new PopupWithSubmit(confirmPopup);
+//             const deleteCard = new Api({
+//               url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/",
+//               headers: {
+//                 "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
+//               }
+//             })
+
+//             function deleteThisCard(item) {
+//               deleteCard.deleteCard(item._id)
+//             }
+//             confirmDelPopup.setEventListeners(deleteThisCard, item);
+//             confirmDelPopup.open();
+
+
+
+//           }
+//         },
+//         cardItemTemplateSelector)
+//       cardList.setItem(card.renderCard())
+//     }))
+// }).catch((err) => console.log("Ошибка при рендере карточек с сервера " + err))
 
 
 

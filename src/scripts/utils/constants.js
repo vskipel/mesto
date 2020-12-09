@@ -9,6 +9,7 @@ const imagePopup = document.querySelector(".popup_type_image");
 const updatePopup = document.querySelector(".popup_type_update-avatar");
 const confirmPopup = document.querySelector(".popup_type_confirm");
 
+
 // открытие попапов на главной
 const editPopupOpen = document.querySelector(".edit-button");
 const addPopupOpen = document.querySelector(".add-button");
@@ -20,6 +21,8 @@ const formAdd = document.forms.add;
 
 // кнопка эйскейп
 const escButton = "Escape";
+
+
 
 const templateCard = document.querySelector(".template-card");
 const deleteButton = templateCard.querySelector(".card__button-delete");
