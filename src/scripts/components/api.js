@@ -3,7 +3,9 @@ export class Api {
     this._url = config.url;
     this._headers = config.headers;
     this._body = config.body;
+
   }
+
   getInitialCards() {
     return fetch(this._url, {
       method: "GET",
@@ -73,16 +75,17 @@ export class Api {
 
   updateAvatar(link) {
     return fetch(this._url, {
-      method: "PATCH",
-      headers: this._headers,
-      body: this._body,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Произошла ошибка")
-      }
-    })
+        method: "PATCH",
+        headers: this._headers,
+        body: this._body,
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject("Произошла ошибка")
+        }
+      })
   }
 
 

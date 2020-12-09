@@ -5,11 +5,12 @@ import {
 export class PopupWithForm extends Popup {
   constructor({
     popupSelector,
-    handleFormSubmit
+    handleFormSubmit,
   }) {
     super(popupSelector);
     this._popup = popupSelector;
     this._handleFormSubmit = handleFormSubmit;
+
   }
 
   _getInputValues() {
@@ -17,7 +18,6 @@ export class PopupWithForm extends Popup {
 
     this._formValues = {};
     this._inputList.forEach(input => this._formValues[input.name] = input.value);
-    console.log(this._formValues)
     return this._formValues;
   };
 

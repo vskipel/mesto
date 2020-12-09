@@ -35,10 +35,6 @@ export class Card {
     // this._likeButtonState(this._cardData, this._likeButton)
   }
 
-  _setLikesState() {
-
-  }
-
   _removeDeleteButton() {
     // убираем кнопку удаления с чужих карточек
     this._deleteButton = this._cardElement.querySelector(".card__button-delete")
@@ -78,7 +74,6 @@ export class Card {
 
     // выбираем кнопку лайка
     this._likeButton = this._cardElement.querySelector(".card__button-like");
-    
     this._likeButtonState(this._cardData, this._likeButton, this._cardElement)
 
 
