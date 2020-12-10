@@ -11,6 +11,7 @@ const confirmPopup = document.querySelector(".popup_type_confirm");
 const avatarPopup = document.querySelector(".popup_type_update-avatar");
 
 
+
 // открытие попапов на главной
 const editPopupOpen = document.querySelector(".edit-button");
 const addPopupOpen = document.querySelector(".add-button");

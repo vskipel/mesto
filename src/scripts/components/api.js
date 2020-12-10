@@ -14,7 +14,7 @@ export class Api {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject("Произошла ошибка")
+        return Promise.reject(`Ошибка: ${res.status}`)
       }
     })
   }
@@ -83,7 +83,7 @@ export class Api {
         if (res.ok) {
           return res.json();
         } else {
-          return Promise.reject("Произошла ошибка")
+          return Promise.reject(`Ошибка: ${res.status}`)
         }
       })
   }
@@ -97,7 +97,7 @@ export class Api {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject("Произошла ошибка в получении данных профиля")
+        return Promise.reject(`Ошибка: ${res.status}`)
       }
 
     })
@@ -112,7 +112,7 @@ export class Api {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject("Произошла ошибка", console.log("Произошла ошибка в добавлении инфо профиля"))
+        return Promise.reject(`Ошибка: ${res.status}`)
       }
     })
   }

@@ -24,7 +24,7 @@ export class Card {
     this._cardElement.remove();
   }
 
-  _delete() {
+  removeCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -81,7 +81,7 @@ export class Card {
     this._likeButton.addEventListener('click', () => this._like())
 
     // слушатель удаления карточки
-    this._deleteButton.addEventListener('click', () => this._handleDeleteIconClick(this._cardData, this._cardElement));
+    this._deleteButton.addEventListener('click', () => this._handleDeleteIconClick(this._cardData));
 
 
     return this._cardElement;

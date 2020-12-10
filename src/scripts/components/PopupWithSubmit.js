@@ -11,16 +11,21 @@ export class PopupWithSubmit extends Popup {
 
   }
 
-  setEventListeners(deleteThisCard, item, cardElement) {
+  setSubmitAction(submitAction) {
+    this._handleSubmitCallback = submitAction; // перезаписали на новый коллбэк
+  }
+
+  setEventListeners() {
     super.setEventListeners();
     const form = this._popup.querySelector(".form");
     console.log(form);
     form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      deleteThisCard(item);
+      this._handleSubmitCallback();
+      // deleteThisCard(item);
       this.close();
-      cardElement.remove();
-      cardElement = null;
+      // cardElement.remove();
+      // cardElement = null;
     })
   };
 
