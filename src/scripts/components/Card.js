@@ -30,9 +30,7 @@ export class Card {
   }
 
   _like() {
-    // this._likeButtonState(this._cardData, this._likeButton)
     this._handleLikeClick(this._cardData, this._cardElement);
-    // this._likeButtonState(this._cardData, this._likeButton)
   }
 
   _removeDeleteButton() {
@@ -42,7 +40,6 @@ export class Card {
   }
 
   _removeLike() {
-
     this._likeButton.classList.remove("card__button-like_active");
     this._handleRemoveClick(this._cardData);
   }
@@ -62,27 +59,18 @@ export class Card {
     // определим массив лайков карточки
     this._likesArr = this._cardData.likes;
 
-
-
-
-    const delButtonRemover = () => this._removeDeleteButton();
-    delButtonRemover();
-
-
-    
-
-
     // выбираем кнопку лайка
     this._likeButton = this._cardElement.querySelector(".card__button-like");
     this._likeButtonState(this._cardData, this._likeButton, this._cardElement)
 
-
     // // добавляем слушатель и вызываем в коллбеке функцию на кнопку лайка
     this._likeButton.addEventListener('click', () => this._like())
 
+    // рендерим кнопку удаления только на своих карточках
+    this._removeDeleteButton();
+
     // слушатель удаления карточки
     this._deleteButton.addEventListener('click', () => this._handleDeleteIconClick(this._cardData));
-
 
     return this._cardElement;
   }

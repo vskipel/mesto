@@ -21,7 +21,6 @@ export class PopupWithForm extends Popup {
     return this._formValues;
   };
 
-
   setEventListeners() {
     super.setEventListeners();
     const form = this._popup.querySelector(".form");
@@ -32,8 +31,6 @@ export class PopupWithForm extends Popup {
 
     })
   };
-
-
 
   close() {
     super.close();

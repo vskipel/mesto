@@ -36,8 +36,6 @@ import {
   avatarPopup,
   editAvatarPopupOpen,
   formUpdateAvatar,
-
-
 } from '../scripts/utils/constants.js';
 
 import '../pages/index.css'
@@ -45,8 +43,6 @@ import '../pages/index.css'
 import {
   PopupWithSubmit
 } from '../scripts/components/PopupWithSubmit.js';
-
-
 
 //включаем валидацию формы изменения профиля
 const formEditValidation = new FormValidator(formEdit, validationParameters);
@@ -96,10 +92,8 @@ const openImagePopupHandler = (item) => {
   imagePopupOpen.open(item);
 }
 
-// рендерим карточки и вставляем в разметку классом Section
+// вставляем карточки в разметку классом Section
 const cardList = new Section(containerSelector);
-
-
 
 // получаем информацию для отображения в профиле
 apiProfile.getProfileInfo()
@@ -111,8 +105,6 @@ apiProfile.getProfileInfo()
 
     const profileData = data;
 
-
-
     const apiCards = new Api({
       url: "https://mesto.nomoreparties.co/v1/cohort-18/cards",
       headers: {
@@ -120,25 +112,17 @@ apiProfile.getProfileInfo()
       }
     })
 
-
-    // создаем класс удаления карточки
-    // const popupWithSubmitHandler = new PopupWithSubmit({
-    //   popupSelector: confirmPopup,
-    // });
-
-    // функция рендера карточек
-
     function cardRenderer(item) {
       {
-
-
         const isLiked = () => item.likes.find(person => (person._id === profileData._id));
 
         const card = new Card({
             data: item,
+
             handleCardClick: (item) => {
               openImagePopupHandler(item)
             },
+
             handleLikeClick: (cardData, cardElement) => {
               const likeCard = new Api({
                 url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/",
@@ -148,21 +132,20 @@ apiProfile.getProfileInfo()
               })
 
               if (isLiked()) {
-                console.log('LIKE REMOVED')
                 likeCard.removeLikeCard(cardData._id)
                   .then((cardElement.querySelector(".card__button-like").classList.remove("card__button-like_active")))
                   .then((res) => (cardElement.querySelector(".card__button-likes-counter").textContent = res.likes.length))
                   .then(item.likes.pop(profileData))
+                  .catch((err) => 'Ошибка: ' + err)
 
 
               } else {
-                console.log('LIKED')
                 likeCard.likeCard(cardData._id)
                   .then((cardElement.querySelector(".card__button-like").classList.add("card__button-like_active")))
                   .then((res) => (cardElement.querySelector(".card__button-likes-counter").textContent = res.likes.length))
                   .then(cardData.likes.push(profileData))
+                  .catch((err) => 'Ошибка: ' + err)
               }
-
             },
 
 
@@ -173,16 +156,13 @@ apiProfile.getProfileInfo()
               }
 
               if (isLiked()) {
-                console.log('я лайкнул')
                 likesCounter()
                 likeButton.classList.add("card__button-like_active");
-
 
               } else {
                 likesCounter()
                 likeButton.classList.remove("card__button-like_active");
               }
-
             },
 
             renderDeleteButton: (deleteButton) => {
@@ -197,18 +177,18 @@ apiProfile.getProfileInfo()
 
             handleDeleteIconClick: (item) => {
 
-              const submitPopup = new PopupWithSubmit(confirmPopup);              
+              const submitPopup = new PopupWithSubmit(confirmPopup);
               const deleteCard = new Api({
                 url: "https://mesto.nomoreparties.co/v1/cohort-18/cards/",
                 headers: {
                   "authorization": "e9b15767-4b50-4f24-9b84-b0128a0d1268"
                 }
               })
-              
+
               submitPopup.setSubmitAction(() => {
                 deleteCard.deleteCard(item._id)
                   .then(res => card.removeCard())
-                  .catch(err => console.error(err))
+                  .catch((err) => console.log("Ошибка: " + err))
               })
               submitPopup.setEventListeners()
               submitPopup.open()
@@ -220,19 +200,17 @@ apiProfile.getProfileInfo()
       }
     }
 
-
     // добавляем карточки с сервера
     const cards = apiCards.getInitialCards();
     cards.then((data) => {
         Promise.all(data.sort(byField('createdAt')))
-          .then((data) => console.log(data))
           .then(data.forEach((item) =>
             cardRenderer(item)
           ))
+          .catch((err) => console.log("Ошибка: " + err))
       })
       .catch((err) => console.log("Ошибка при рендере карточек с сервера " + err))
       .then(() => {
-
 
         // создаем класс добавления карточки
         const popupWithFormAddCard = new PopupWithForm({
@@ -255,10 +233,20 @@ apiProfile.getProfileInfo()
               .then((res) => cardRenderer(res))
               .then(apiCards.getInitialCards())
               .then(() => renderLoading(addPopup, false))
-
+              .catch((err) => console.log("Ошибка: " + err))
           }
         });
 
+        // попап добавления карточки
+        popupWithFormAddCard.setEventListeners();
+        addPopupOpen.addEventListener('click', () => {
+          formAddValidation.toggleButtonState();
+          popupWithFormAddCard.open();
+        })
+
+      })
+      .catch((err) => console.log("Ошибка при добавлении карточек " + err))
+      .then(() => {
 
         // создаем класс обновления аватара
         const popupUpdateAvatar = new PopupWithForm({
@@ -280,9 +268,9 @@ apiProfile.getProfileInfo()
               .then(apiProfile.getProfileInfo())
               .then((data) => document.querySelector('.profile__avatar').src = data.avatar)
               .finally(() => renderLoading(avatarPopup, false))
+              .catch((err) => console.log("Ошибка: " + err))
           }
         });
-
 
         // попап обновления аватара
         popupUpdateAvatar.setEventListeners();
@@ -291,18 +279,10 @@ apiProfile.getProfileInfo()
           popupUpdateAvatar.open();
         })
 
-        // попап добавления карточки
-        popupWithFormAddCard.setEventListeners();
-        addPopupOpen.addEventListener('click', () => {
-          formAddValidation.toggleButtonState();
-          popupWithFormAddCard.open();
-        })
-
-      }).then(() => {
-
         // создаем класс для обработки попапа профиля 
         const formEditProfile = new UserInfo('.profile-info__title', '.profile-info__subtitle');
 
+        // класс для получения данных из формы профиля
         const popupWithFormEditProfile = new PopupWithForm({
           popupSelector: editPopup,
           handleFormSubmit: (item) => {
@@ -331,9 +311,6 @@ apiProfile.getProfileInfo()
 
         popupWithFormEditProfile.setEventListeners();
 
-
-
-
         // открываем попап профиля
         editPopupOpen.addEventListener("click", () => {
           formEditProfile.getUserInfo();
@@ -343,5 +320,4 @@ apiProfile.getProfileInfo()
           popupWithFormEditProfile.open();
         });
       })
-
-  }).catch((err) => "Ошибка в получении данных профиля " + console.log(err))
+  }).catch((err) => console.log("Ошибка в изменении данных профиля " + err))
