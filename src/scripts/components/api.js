@@ -1,119 +1,105 @@
+const handleOriginalResponse = (res) => {
+  if (!res.ok) {
+    return Promise.reject(`Error: ${res.status}`);
+  }
+  return res.json();
+}
+
 export class Api {
   constructor(config) {
     this._url = config.url;
-    this._headers = config.headers;
-    this._body = config.body;
+    this._token = config.token;
 
   }
 
+
   getInitialCards() {
-    return fetch(this._url, {
+    return fetch(`${this._url}/cards`, {
       method: "GET",
-      headers: this._headers
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+      headers: {
+        authorization: this._token,
+      },
+    }).then(handleOriginalResponse);
   }
 
   addCard(data) {
-    return fetch(this._url, {
+    return fetch(`${this._url}/cards/`, {
       method: "POST",
-      headers: this._headers,
-      body: JSON.stringify(data)
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Произошла ошибка")
-      }
-    })
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
+    }).then(handleOriginalResponse);
   }
 
   deleteCard(id) {
-    return fetch(`${this._url}${id}`, {
+    return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Произошла ошибка")
-      }
-    })
+      headers: {
+        authorization: this._token,
+      },
+    }).then(handleOriginalResponse);
   }
 
 
   likeCard(id) {
-    return fetch(`${this._url}${id}`, {
+    return fetch(`${this._url}/cards/likes/${id}`, {
       method: "PUT",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Произошла ошибка")
-      }
-    })
+      headers: {
+        authorization: this._token,
+      },
+    }).then(handleOriginalResponse);
   }
 
   removeLikeCard(id) {
-    return fetch(`${this._url}${id}`, {
+    return fetch(`${this._url}/cards/likes/${id}`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Произошла ошибка")
-      }
-    })
+      headers: {
+        authorization: this._token,
+      },
+    }).then(handleOriginalResponse);
   }
 
   updateAvatar(link) {
-    return fetch(this._url, {
+    return fetch(`${this._url}/users/me/avatar`, {
         method: "PATCH",
-        headers: this._headers,
-        body: this._body,
+        headers: {
+          authorization: this._token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          avatar: link,
+        }),
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`)
-        }
-      })
+      .then(handleOriginalResponse);
   }
 
 
   getProfileInfo() {
-    return fetch(this._url, {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
-      headers: this._headers
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-
-    })
+      headers: {
+        authorization: this._token,
+      },
+    }).then(handleOriginalResponse);
   }
 
-  setProfileInfo() {
-    return fetch(this._url, {
+  setProfileInfo(data) {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
-      body: this._body
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        about: data.job
+      })
+    }).then(handleOriginalResponse);
   }
 }
